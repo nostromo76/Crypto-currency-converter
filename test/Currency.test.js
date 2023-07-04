@@ -1,6 +1,7 @@
-const { Builder, Select } = require('selenium-webdriver');
+const { Builder } = require('selenium-webdriver');
 const { Driver } = require('selenium-webdriver/chrome');
 const { By } = require('selenium-webdriver');
+const { Select } = require('selenium-webdriver');
 const CurrencyPage = require('../pages/BasePage.js')
 const assert = require('assert');
 
@@ -22,6 +23,7 @@ describe('Test Currency converter', async function () {
         // CurrencyConverter.closeBrowser();
     })
     it('Open page', async function () {
+
         await CurrencyConverter.visit(fileUrl)
 
     })
@@ -32,7 +34,7 @@ describe('Test Currency converter', async function () {
     })
     it('test headline h1', async function () {
         await CurrencyConverter.visit(fileUrl);
-         //await driver.manage().window().maximize();
+        //await driver.manage().window().maximize();
         const title = await driver.findElement(By.css('h1'));
         const text = await title.getText();
         assert.ok(text.includes('Cryptocurrency Rates Calculator'));
@@ -45,29 +47,48 @@ describe('Test Currency converter', async function () {
 
     it('Test choosing currency by option', async function () {
         await CurrencyConverter.visit(fileUrl);
-        
-            let select = await driver.findElement(By.id('currency'));
-            let currency = new Select(select);
-            currency.selectByValue("USD");
-            let selectedOption = await currency.getSelectedOption();
-            assert.equal(await selectedOption.getAttribute("value"), "USD");
-            });
 
-        })
+        let select = await driver.findElement(By.id('currency'));
+        let currency = new Select(select);
+        await driver.manage().window().maximize();
+        currency.selectByValue("USD");
+        let selectedOption = await currency.getSelectedOption();
+        assert.equal(await selectedOption.getAttribute("value"), "USD");
+    });
+    it.only('Test disabled option', async () => {
+        await CurrencyConverter.visit(fileUrl);
+        //await driver.manage().window().maximize();
+        // Find the select element and the option
+        const select = await driver.findElement(By.id('cryptocurrency'));
+        const option = await select.findElement(By.css('option[value=""]'));
+      
+        // Select the option by its value
+        await option.click();
+      
+        // Assert that the option is selected
+        const selectedOption = await select.findElement(By.css('option:checked'));
+        assert.strictEqual(await selectedOption.getAttribute('value'), '', 'Option not selected');
+      });
+
+    });
 
 
 
 
 
-            
-            
 
 
 
 
-        
 
- 
-        })
- 
-   
+
+
+
+
+
+
+
+
+
+
+
