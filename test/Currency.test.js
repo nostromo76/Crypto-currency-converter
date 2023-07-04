@@ -1,4 +1,4 @@
-const { Builder } = require('selenium-webdriver');
+const { Builder, until } = require('selenium-webdriver');
 const { Driver } = require('selenium-webdriver/chrome');
 const { By } = require('selenium-webdriver');
 const { Select } = require('selenium-webdriver');
@@ -55,21 +55,55 @@ describe('Test Currency converter', async function () {
         let selectedOption = await currency.getSelectedOption();
         assert.equal(await selectedOption.getAttribute("value"), "USD");
     });
-    it.only('Test disabled option', async () => {
+    it('Test disabled option', async () => {
         await CurrencyConverter.visit(fileUrl);
-      
+
         const select = await driver.findElement(By.id('cryptocurrency'));
         const option = await select.findElement(By.css('option[value=""]'));
-      
-       
+
+
         await option.click();
-      
-        
+
+
         const selectedOption = await select.findElement(By.css('option:checked'));
         assert.strictEqual(await selectedOption.getAttribute('value'), '', 'Option not selected');
-      });
-
     });
+
+    it('Should display a message when button is clicked on empty inputs ', async () => {
+        await CurrencyConverter.visit(fileUrl);
+
+
+        const button = await driver.findElement(By.css('button[name="action"]'));
+        await button.click();
+
+        // cant find , wait for 5000ms
+        const messageElement = await driver.findElement(By.css('.messages'));
+        await driver.wait(until.elementIsVisible(messageElement), 5000);
+
+        // assert message
+        const messageText = await messageElement.getText();
+        assert.notStrictEqual(messageText, '', 'All the fields are mandatory');
+    });
+
+    it.only('Test site logic is failed', async function () {
+        await CurrencyConverter.visit(fileUrl);
+
+        let select = await driver.findElement(By.id('currency'));
+        let currency = new Select(select);
+        currency.selectByValue("THB");
+        const button = await driver.findElement(By.css('button[name="action"]'));
+        await button.click();
+        const messageElement = await driver.findElement(By.css('.messages'));
+        await driver.wait(until.elementIsVisible(messageElement), 5000);
+
+        // assert message
+        const messageText = await messageElement.getText();
+        assert.notStrictEqual(messageText, '', 'All the fields are mandatory');
+
+    })
+});
+
+
 
 
 

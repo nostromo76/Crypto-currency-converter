@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2023-07-04T10:53:22.448Z",
-    "end": "2023-07-04T10:53:23.714Z",
-    "duration": 1266,
+    "start": "2023-07-04T11:25:22.446Z",
+    "end": "2023-07-04T11:25:25.996Z",
+    "duration": 3550,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "0f9e01ac-0111-41aa-bc2e-4fe3bf04135f",
+      "uuid": "3fdde306-caa4-40d3-906c-696e1f6a7e1a",
       "title": "",
       "fullFile": "C:\\Users\\USER\\Desktop\\Crypto-Currency-Converter\\Crypto-currency-converter\\test\\Currency.test.js",
       "file": "\\test\\Currency.test.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "f342e8fc-08ed-4f3c-93a3-5e60b2810054",
+          "uuid": "11046f73-67e2-4bfd-8037-61e9ad665678",
           "title": "Test Currency converter",
           "fullFile": "C:\\Users\\USER\\Desktop\\Crypto-Currency-Converter\\Crypto-currency-converter\\test\\Currency.test.js",
           "file": "\\test\\Currency.test.js",
@@ -36,7 +36,7 @@
               "title": "\"before each\" hook: Open Currency converter in \"Test Currency converter\"",
               "fullTitle": "Test Currency converter \"before each\" hook: Open Currency converter in \"Test Currency converter\"",
               "timedOut": false,
-              "duration": 6,
+              "duration": 7,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "driver = new Builder().forBrowser('chrome').build()\nCurrencyConverter = new CurrencyPage(driver)",
               "err": {},
-              "uuid": "4d8954d8-b284-43c7-92f4-7766a8ecd34a",
-              "parentUUID": "f342e8fc-08ed-4f3c-93a3-5e60b2810054",
+              "uuid": "13b5d196-759a-4e96-8b02-381e60c4b030",
+              "parentUUID": "11046f73-67e2-4bfd-8037-61e9ad665678",
               "isHook": true,
               "skipped": false
             }
@@ -65,40 +65,40 @@
               "context": null,
               "code": "// CurrencyConverter.closeBrowser();",
               "err": {},
-              "uuid": "c43e2b53-345f-4910-992c-19abe1efcfd4",
-              "parentUUID": "f342e8fc-08ed-4f3c-93a3-5e60b2810054",
+              "uuid": "e271c2bb-f2f5-4c00-a22a-912decbd4086",
+              "parentUUID": "11046f73-67e2-4bfd-8037-61e9ad665678",
               "isHook": true,
               "skipped": false
             }
           ],
           "tests": [
             {
-              "title": "Test disabled option",
-              "fullTitle": "Test Currency converter Test disabled option",
+              "title": "Test site logic is failed",
+              "fullTitle": "Test Currency converter Test site logic is failed",
               "timedOut": false,
-              "duration": 1254,
+              "duration": 3536,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "await CurrencyConverter.visit(fileUrl);\n//await driver.manage().window().maximize();\n// Find the select element and the option\nconst select = await driver.findElement(By.id('cryptocurrency'));\nconst option = await select.findElement(By.css('option[value=\"\"]'));\n      \n// Select the option by its value\nawait option.click();\n      \n// Assert that the option is selected\nconst selectedOption = await select.findElement(By.css('option:checked'));\nassert.strictEqual(await selectedOption.getAttribute('value'), '', 'Option not selected');",
+              "code": "await CurrencyConverter.visit(fileUrl);\nlet select = await driver.findElement(By.id('currency'));\nlet currency = new Select(select);\ncurrency.selectByValue(\"THB\");\nconst button = await driver.findElement(By.css('button[name=\"action\"]'));\nawait button.click();\nconst messageElement = await driver.findElement(By.css('.messages'));\nawait driver.wait(until.elementIsVisible(messageElement), 5000);\n// assert message\nconst messageText = await messageElement.getText();\nassert.notStrictEqual(messageText, '', 'All the fields are mandatory');",
               "err": {},
-              "uuid": "478e46ac-57c9-47ff-853f-90db06e382b4",
-              "parentUUID": "f342e8fc-08ed-4f3c-93a3-5e60b2810054",
+              "uuid": "616580bc-a13a-41a1-bd6e-189d6b8c384b",
+              "parentUUID": "11046f73-67e2-4bfd-8037-61e9ad665678",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "478e46ac-57c9-47ff-853f-90db06e382b4"
+            "616580bc-a13a-41a1-bd6e-189d6b8c384b"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1254,
+          "duration": 3536,
           "root": false,
           "rootEmpty": false,
           "_timeout": 10000
