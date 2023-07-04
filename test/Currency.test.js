@@ -32,7 +32,7 @@ describe('Test Currency converter', async function () {
     })
     it('test headline h1', async function () {
         await CurrencyConverter.visit(fileUrl);
-         await driver.manage().window().maximize();
+         //await driver.manage().window().maximize();
         const title = await driver.findElement(By.css('h1'));
         const text = await title.getText();
         assert.ok(text.includes('Cryptocurrency Rates Calculator'));
@@ -45,8 +45,7 @@ describe('Test Currency converter', async function () {
 
     it('Test choosing currency by option', async function () {
         await CurrencyConverter.visit(fileUrl);
-        it.only('Test choosing currency by option', async function(){
-            await CurrencyConverter.visit(fileUrl);
+        
             let select = await driver.findElement(By.id('currency'));
             let currency = new Select(select);
             currency.selectByValue("USD");
@@ -54,5 +53,21 @@ describe('Test Currency converter', async function () {
             assert.equal(await selectedOption.getAttribute("value"), "USD");
             });
 
-    })
-})
+        })
+
+
+
+
+
+            
+            
+
+
+
+
+        
+
+ 
+        })
+ 
+   
