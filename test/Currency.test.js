@@ -49,18 +49,28 @@ describe('Test Currency converter', async function () {
         assert('label', 'Currency');
     })
 
-    it.only('Test choosing currency by option', async function () {
+    it.only("Test choosing currency by option", async function () {
         await CurrencyConverter.visit(fileUrl);
         await driver.manage().window().maximize();
-        let select = await driver.wait(until.elementLocated(By.id('currency')), 5000);
+        await driver.sleep(2000);
+        let select = await driver.wait(
+          until.elementLocated(By.id("currency")),
+          5000
+        );
         let currency = new Select(select);
-        currency.selectByValue('MXN');
-
+        const selectElement = await driver.findElement(By.id("currency"));
+        const optionValue = "MXN";
+        await driver.executeScript(
+          `arguments[0].value = '${optionValue}';`,
+          selectElement
+        );
+        await driver.sleep(2000);
         // Get the currently selected option and verify its value
         const selectedOption = await currency.getFirstSelectedOption();
         const selectedOptionText = await selectedOption.getText();
-        assert.equal(selectedOptionText, 'MXN', 'Mexican Peso');
-    });
+        console.log(selectedOptionText);
+        assert.equal(selectedOptionText, "Mexican Peso");
+      });
 
 });
 it('Test disabled option', async () => {

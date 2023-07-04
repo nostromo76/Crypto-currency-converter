@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 0,
+    "passes": 1,
     "pending": 0,
-    "failures": 1,
-    "start": "2023-07-04T14:00:16.314Z",
-    "end": "2023-07-04T14:00:18.107Z",
-    "duration": 1793,
+    "failures": 0,
+    "start": "2023-07-04T17:44:53.647Z",
+    "end": "2023-07-04T17:44:59.472Z",
+    "duration": 5825,
     "testsRegistered": 1,
-    "passPercent": 0,
+    "passPercent": 100,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "41e89e23-bbd3-46b0-83e8-6e69468f98e5",
+      "uuid": "2dd4547b-1505-436c-9fd3-dacf20fdef19",
       "title": "",
       "fullFile": "C:\\Users\\USER\\Desktop\\Crypto-Currency-Converter\\Crypto-currency-converter\\test\\Currency.test.js",
       "file": "\\test\\Currency.test.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "f873aead-9f54-424f-805e-9304e491f398",
+          "uuid": "80d3b1c0-4ba3-4dea-8b74-ba522f10a9cf",
           "title": "Test Currency converter",
           "fullFile": "C:\\Users\\USER\\Desktop\\Crypto-Currency-Converter\\Crypto-currency-converter\\test\\Currency.test.js",
           "file": "\\test\\Currency.test.js",
@@ -36,7 +36,7 @@
               "title": "\"before each\" hook: Open Currency converter in \"Test Currency converter\"",
               "fullTitle": "Test Currency converter \"before each\" hook: Open Currency converter in \"Test Currency converter\"",
               "timedOut": false,
-              "duration": 11,
+              "duration": 9,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "driver = new Builder().forBrowser(process.env.USE_BROWSER).build();\nCurrencyConverter = new CurrencyPage(driver)",
               "err": {},
-              "uuid": "24d60432-6062-4fc8-9538-5796d2cf532a",
-              "parentUUID": "f873aead-9f54-424f-805e-9304e491f398",
+              "uuid": "3d60fb26-b938-4145-b726-e5b7ece11977",
+              "parentUUID": "80d3b1c0-4ba3-4dea-8b74-ba522f10a9cf",
               "isHook": true,
               "skipped": false
             }
@@ -65,8 +65,8 @@
               "context": null,
               "code": "//CurrencyConverter.closeBrowser();",
               "err": {},
-              "uuid": "9b414273-57ee-41ee-a325-b8df47773388",
-              "parentUUID": "f873aead-9f54-424f-805e-9304e491f398",
+              "uuid": "3a397ccc-160d-4b26-bfa1-b2621684be47",
+              "parentUUID": "80d3b1c0-4ba3-4dea-8b74-ba522f10a9cf",
               "isHook": true,
               "skipped": false
             }
@@ -76,33 +76,29 @@
               "title": "Test choosing currency by option",
               "fullTitle": "Test Currency converter Test choosing currency by option",
               "timedOut": false,
-              "duration": 1775,
-              "state": "failed",
-              "speed": null,
-              "pass": false,
-              "fail": true,
+              "duration": 5808,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
               "pending": false,
               "context": null,
-              "code": "await CurrencyConverter.visit(fileUrl);\nawait driver.manage().window().maximize();\nlet select = await driver.wait(until.elementLocated(By.id('currency')), 5000);\nlet currency = new Select(select);\ncurrency.selectByValue('MXN');\n// Get the currently selected option and verify its value\nconst selectedOption = await currency.getFirstSelectedOption();\nconst selectedOptionText = await selectedOption.getText();\nassert.equal(selectedOptionText, 'MXN', 'Mexican Peso');",
-              "err": {
-                "message": "AssertionError: Mexican Peso",
-                "estack": "AssertionError [ERR_ASSERTION]: Mexican Peso\n    at Context.<anonymous> (test\\Currency.test.js:62:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
-                "diff": "- - Select Currency -\n+ MXN\n"
-              },
-              "uuid": "bafa385f-651a-478d-869c-3a685370a1bc",
-              "parentUUID": "f873aead-9f54-424f-805e-9304e491f398",
+              "code": "await CurrencyConverter.visit(fileUrl);\nawait driver.manage().window().maximize();\nawait driver.sleep(2000);\nlet select = await driver.wait(\n  until.elementLocated(By.id(\"currency\")),\n  5000\n);\nlet currency = new Select(select);\nconst selectElement = await driver.findElement(By.id(\"currency\"));\nconst optionValue = \"MXN\";\nawait driver.executeScript(\n  `arguments[0].value = '${optionValue}';`,\n  selectElement\n);\nawait driver.sleep(2000);\n// Get the currently selected option and verify its value\nconst selectedOption = await currency.getFirstSelectedOption();\nconst selectedOptionText = await selectedOption.getText();\nconsole.log(selectedOptionText);\nassert.equal(selectedOptionText, \"Mexican Peso\");",
+              "err": {},
+              "uuid": "554544be-669f-403a-82f4-3e6463cd0200",
+              "parentUUID": "80d3b1c0-4ba3-4dea-8b74-ba522f10a9cf",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [],
-          "failures": [
-            "bafa385f-651a-478d-869c-3a685370a1bc"
+          "passes": [
+            "554544be-669f-403a-82f4-3e6463cd0200"
           ],
+          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 1775,
+          "duration": 5808,
           "root": false,
           "rootEmpty": false,
           "_timeout": 10000
