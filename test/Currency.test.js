@@ -57,15 +57,14 @@ describe('Test Currency converter', async function () {
     });
     it.only('Test disabled option', async () => {
         await CurrencyConverter.visit(fileUrl);
-        //await driver.manage().window().maximize();
-        // Find the select element and the option
+      
         const select = await driver.findElement(By.id('cryptocurrency'));
         const option = await select.findElement(By.css('option[value=""]'));
       
-        // Select the option by its value
+       
         await option.click();
       
-        // Assert that the option is selected
+        
         const selectedOption = await select.findElement(By.css('option:checked'));
         assert.strictEqual(await selectedOption.getAttribute('value'), '', 'Option not selected');
       });
